@@ -1,0 +1,17 @@
+platform :ios, '7.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+inhibit_all_warnings!
+
+def common_pods 
+  pod "LDMLightweightStore", :path => "../"
+end
+
+target 'LDMLightweightStore' do
+	common_pods
+end
+
+target 'LDMLightweightStoreTests' do
+	common_pods
+end
