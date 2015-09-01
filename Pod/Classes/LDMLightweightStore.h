@@ -18,6 +18,10 @@ extern NSString* const LDMLightweightStoreOptionsAllFieldsArrayKey;
 
 @interface LDMLightweightStore : NSObject
 
+#pragma mark - Subscription
+- (id)objectForKeyedSubscript:(id<NSCopying>)key;
+- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
+
 #pragma mark - Instantiation
 - (instancetype) initWithOptions:(NSDictionary *)options;
 
@@ -33,9 +37,27 @@ extern NSString* const LDMLightweightStoreOptionsAllFieldsArrayKey;
 - (void) setUp;
 - (void) tearDown;
 
-#pragma mark - Set/Get
+#pragma mark - Getters / Setters
+/*
+ Getters and Setters
+ Unlike NSDictionary accessor methods, lightweight store methods
+ * -setField:byValue 
+ * -fieldByName: 
+ should work nil-safe.
+ 
+ Their opponents are item manipulation methods 
+ * -setItem:forKey: 
+ * -itemForKey:
+ * -removeItemForKey:
+
+ They are used in subsciption interface implementation and should work as 'expected' with nil values like setting nil means deletion and should be handled separately.
+ */
 - (void) setField:(id<NSCopying>)name byValue:(id<NSCopying>)value;
 - (id) fieldByName:(id<NSCopying>)name;
+
+- (void)setItem:(id)item forKey:(id<NSCopying>)key;
+- (id)itemForKey:(id<NSCopying>)key;
+- (void)removeItemForKey:(id<NSCopying>)key;
 
 @end
 
