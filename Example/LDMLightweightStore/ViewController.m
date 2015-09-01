@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <LDMLightweightStore/LDMLightweightStore.h>
-@interface ViewController ()
+@interface ViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UILabel *memoryLabel;
@@ -17,8 +17,7 @@
 
 @property (strong, nonatomic) LDMLightweightStore *memoryStore;
 @property (strong, nonatomic) LDMLightweightStore *defaultsStore;
-@property (strong, nonatomic)
-LDMLightweightStore *keychainStore;
+@property (strong, nonatomic) LDMLightweightStore *keychainStore;
 
 @property (strong, nonatomic, readonly) NSString *storedStringFieldName;
 
@@ -30,9 +29,13 @@ LDMLightweightStore *keychainStore;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // gesture recognizer
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] init];
-    [gestureRecognizer addTarget:self action:@selector(tapPressed)];
+    [gestureRecognizer addTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
+    
+    // text field
+    self.textField.delegate = self;
     
     // setup stores
     NSArray *allFields = @[self.storedStringFieldName];
@@ -49,6 +52,7 @@ LDMLightweightStore *keychainStore;
     
     self.keychainStore = [LDMLightweightStore storeWithPolicy:LDMLightweightStorePolicyKeychain andOptions:options];
     
+    NSDictionary *dictionary = @{};
     [self updateLabels];
 }
 
@@ -100,9 +104,14 @@ LDMLightweightStore *keychainStore;
     [self updateLabels];
 }
 
-#pragma mark - Keyboard
+#pragma mark - Text Field
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self dismissKeyboard];
+    return YES;
+}
 
-- (void) tapPressed {
+#pragma mark - Keyboard
+- (void) dismissKeyboard {
     [self.textField resignFirstResponder];
 }
 
