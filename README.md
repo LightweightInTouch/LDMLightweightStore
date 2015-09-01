@@ -79,7 +79,7 @@ LDMLightweightStore *store =
 ```
 
 ##Contact
-Dmitry Lobanov gaussblurinc@gmail.com
+Dmitry Lobanov http://github.com/lolgear
 
 ##Licene
 LDMLightweightStore is available under the MIT License.
