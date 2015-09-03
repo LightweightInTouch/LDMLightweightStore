@@ -74,8 +74,8 @@ LDMLightweightStore *store =
 #### Switch policy
 
 ```objective-c
-[store switchPolicy:LDMLightweightStorePolicyDefaults];
-[store switchPolicy:LDMLightweightStorePolicyKeychain];
+LDMLightweightStore *newStore = [store switchPolicy:LDMLightweightStorePolicyDefaults];
+LDMLightweightStore *newStore = [store switchPolicy:LDMLightweightStorePolicyKeychain];
 ```
 
 ##Contact
