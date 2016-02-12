@@ -18,7 +18,7 @@ iOS 7 or later
 - Policy switching (move your data between stores)
 
 ##Installation
-To install project use Cocoapods. (Recommended)
+To install project use CocoaPods. (Recommended)
 
 ####CocoaPods
 
