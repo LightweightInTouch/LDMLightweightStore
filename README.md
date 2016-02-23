@@ -1,4 +1,11 @@
 #LDMLightweightStore
+
+[![CI Status](http://img.shields.io/travis/Lobanov Dmitry/LDMLightweightStore.svg?style=flat)](https://travis-ci.org/Lobanov Dmitry/LDMLightweightStore)
+[![Version](https://img.shields.io/cocoapods/v/LDMLightweightStore.svg?style=flat)](http://cocoapods.org/pods/LDMLightweightStore)
+[![License](https://img.shields.io/cocoapods/l/LDMLightweightStore.svg?style=flat)](http://cocoapods.org/pods/LDMLightweightStore)
+[![Platform](https://img.shields.io/cocoapods/p/LDMLightweightStore.svg?style=flat)](http://cocoapods.org/pods/LDMLightweightStore)
+
+
 This is a lightweight key-value store which could be useful if you have several settings in app and you don't know where you should place them
 
 ##Requirements
