@@ -163,6 +163,7 @@
 				045D10FA1B94D9E300595643 /* Frameworks */,
 				045D10FB1B94D9E300595643 /* Resources */,
 				415C4944A933135B7E56F787 /* Copy Pods Resources */,
+				A2AFF28C52DC085D8CB8B2E6 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -182,6 +183,7 @@
 				045D11131B94D9E300595643 /* Frameworks */,
 				045D11141B94D9E300595643 /* Resources */,
 				F39DA813A1CBF20E5ED656E4 /* Copy Pods Resources */,
+				8A133FE6F2F3DF747D400D37 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -281,6 +283,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		8A133FE6F2F3DF747D400D37 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LDMLightweightStoreTests/Pods-LDMLightweightStoreTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8EC2B0984624D242CE9BC7F6 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -294,6 +311,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A2AFF28C52DC085D8CB8B2E6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LDMLightweightStore/Pods-LDMLightweightStore-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F39DA813A1CBF20E5ED656E4 /* Copy Pods Resources */ = {
