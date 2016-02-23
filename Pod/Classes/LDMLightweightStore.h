@@ -18,10 +18,6 @@ extern NSString* const LDMLightweightStoreOptionsAllFieldsArrayKey;
 
 @interface LDMLightweightStore : NSObject
 
-#pragma mark - Subscription
-- (id)objectForKeyedSubscript:(id<NSCopying>)key;
-- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
-
 #pragma mark - Instantiation
 - (instancetype) initWithOptions:(NSDictionary *)options;
 
@@ -34,26 +30,35 @@ extern NSString* const LDMLightweightStoreOptionsAllFieldsArrayKey;
 @property (nonatomic, copy, readonly) id storeEntity;
 
 #pragma mark - Load
-- (void) setUp;
-- (void) tearDown;
+- (void)setUp;
+- (void)tearDown;
 
 #pragma mark - Getters / Setters
+- (void)setField:(id<NSCopying>)name byValue:(id<NSCopying>)value;
+- (id)fieldByName:(id<NSCopying>)name;
+
+@end
+
+@interface LDMLightweightStore (Subscription)
+
 /*
  Getters and Setters
  Unlike NSDictionary accessor methods, lightweight store methods
- * -setField:byValue 
- * -fieldByName: 
+ * -setField:byValue
+ * -fieldByName:
  should work nil-safe.
  
- Their opponents are item manipulation methods 
- * -setItem:forKey: 
+ Their opponents are item manipulation methods
+ * -setItem:forKey:
  * -itemForKey:
  * -removeItemForKey:
-
+ 
  They are used in subsciption interface implementation and should work as 'expected' with nil values like setting nil means deletion and should be handled separately.
  */
-- (void) setField:(id<NSCopying>)name byValue:(id<NSCopying>)value;
-- (id) fieldByName:(id<NSCopying>)name;
+
+#pragma mark - Subscription
+- (id)objectForKeyedSubscript:(id<NSCopying>)key;
+- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key;
 
 - (void)setItem:(id)item forKey:(id<NSCopying>)key;
 - (id)itemForKey:(id<NSCopying>)key;
@@ -65,11 +70,11 @@ extern NSString* const LDMLightweightStoreOptionsAllFieldsArrayKey;
 
 @property (nonatomic, readonly) LDMLightweightStorePolicy policy;
 
-- (BOOL) isEqualToPolicy:(LDMLightweightStorePolicy)policy;
+- (BOOL)isEqualToPolicy:(LDMLightweightStorePolicy)policy;
 
-+ (instancetype) storeWithPolicy:(LDMLightweightStorePolicy)policy andOptions:(NSDictionary *)options;
++ (instancetype)storeWithPolicy:(LDMLightweightStorePolicy)policy andOptions:(NSDictionary *)options;
 
-+ (instancetype) store:(LDMLightweightStore*)store switchPolicy:(LDMLightweightStorePolicy)policy;
-- (instancetype) switchPolicy:(LDMLightweightStorePolicy)policy;
++ (instancetype)store:(LDMLightweightStore*)store switchPolicy:(LDMLightweightStorePolicy)policy;
+- (instancetype)switchPolicy:(LDMLightweightStorePolicy)policy;
 
 @end

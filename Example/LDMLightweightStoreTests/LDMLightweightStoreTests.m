@@ -42,13 +42,73 @@
     // cleanup later
     self.stores[self.stores.count] = store;
     
+    XCTAssertThrows([store setField:nil byValue:nil]);
+    
+    XCTAssertThrows([store setField:nil byValue:@""]);
+    
     [store setField:itemProperty byValue:nil];
     
-    XCTAssert([store fieldByName:itemProperty] == nil);
+    XCTAssertNil([store fieldByName:itemProperty]);
     
-    [store setField:itemProperty byValue:@{}];
+    NSDictionary *testValue = @{@"test" : @"value"};
     
-    XCTAssert([[store fieldByName:itemProperty] isEqualToDictionary:@{}]);
+    [store setField:itemProperty byValue:testValue];
+    
+    XCTAssert([[store fieldByName:itemProperty] isEqualToDictionary:testValue]);
+}
+
+- (void)generalTestForSubscriptionAndPolicy:(LDMLightweightStorePolicy)policy {
+    NSString *itemProperty = @"item";
+    LDMLightweightStore *store = [LDMLightweightStore storeWithPolicy: LDMLightweightStorePolicyKeychain andOptions:@{ LDMLightweightStoreOptionsStoreScopeNameKey:@"scope",  LDMLightweightStoreOptionsAllFieldsArrayKey:@[itemProperty]}];
+    
+    self.stores[self.stores.count] = store;
+    
+    // setItem:forKey
+    // itemForKey:
+    // removeItemForKey:
+    {
+        // nil key
+        XCTAssertNoThrow([store setItem:nil forKey:nil]);
+
+        XCTAssertNoThrow([store setItem:itemProperty forKey:nil]);
+        
+        // nil value
+        [store setItem:nil forKey:itemProperty];
+        
+        XCTAssertNil([store itemForKey:itemProperty]);
+        
+        // general value
+        NSDictionary *testValue = @{@"test" : @"value"};
+        
+        [store setItem:testValue forKey:itemProperty];
+        
+        XCTAssert([[store itemForKey:itemProperty] isEqualToDictionary:testValue]);
+        
+        // remove item
+        [store removeItemForKey:itemProperty];
+        
+        XCTAssertNil([store itemForKey:itemProperty]);
+    }
+    
+    // subscription
+    {
+        // nil key        
+        XCTAssertNoThrow(store[nil] = nil);
+
+        XCTAssertNoThrow(store[nil] = itemProperty);
+        
+        // nil value
+        store[itemProperty] = nil;
+        
+        XCTAssertNil(store[itemProperty]);
+        
+        // general value
+        NSDictionary *testValue = @{@"test" : @"value"};
+        
+        store[itemProperty] = testValue;
+        
+        XCTAssert([store[itemProperty] isEqualToDictionary:testValue]);
+    }
 }
 
 - (void)testAggressiveDataInput:(LDMLightweightStorePolicy)policy {
@@ -101,16 +161,19 @@
 
 - (void)testKeychain {
     [self generalTestForPolicy:LDMLightweightStorePolicyKeychain];
+    [self generalTestForSubscriptionAndPolicy:LDMLightweightStorePolicyKeychain];
     [self testAggressiveDataInput:LDMLightweightStorePolicyKeychain];
 }
 
 - (void)testDefaults {
     [self generalTestForPolicy:LDMLightweightStorePolicyDefaults];
+    [self generalTestForSubscriptionAndPolicy:LDMLightweightStorePolicyDefaults];
     [self testAggressiveDataInput:LDMLightweightStorePolicyDefaults];
 }
 
 - (void)testMemory {
     [self generalTestForPolicy:LDMLightweightStorePolicyMemory];
+    [self generalTestForSubscriptionAndPolicy:LDMLightweightStorePolicyMemory];
     [self testAggressiveDataInput:LDMLightweightStorePolicyMemory];
 }
 

@@ -30,27 +30,6 @@ NSString* const LDMLightweightStoreOptionsAllFieldsArrayKey = @"LDMLightweightSt
 
 @implementation LDMLightweightStore
 
-#pragma mark - Subscription
-- (id)objectForKeyedSubscript:(id<NSCopying>)key {
-    return [self itemForKey:key];
-}
-- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key {
-    [self setItem:obj forKey:key];
-}
-
-- (void)setItem:(id)item forKey:(id<NSCopying>)key {
-    [self setField:item byValue:key];
-}
-
-- (id)itemForKey:(id<NSCopying>)key {
-    [self fieldByName:key];
-}
-
-- (void)removeItemForKey:(id<NSCopying>)key {
-    [self setField:key byValue:nil];
-}
-
-
 #pragma mark - Helpers
 - (NSArray *)necessaryFields {
     NSArray *allFields = self.currentScopedStore.allKeys;
@@ -247,6 +226,38 @@ static NSDictionary *staticDictionaryInMemory = nil;
 
 - (id) fieldByName:(id<NSCopying>)name {
     return name ? self.currentScopedStore[name] : nil;
+}
+
+@end
+
+@implementation LDMLightweightStore (Subscription)
+
+#pragma mark - Subscription
+- (id)objectForKeyedSubscript:(id<NSCopying>)key {
+    return [self itemForKey:key];
+}
+- (void)setObject:(id)obj forKeyedSubscript:(id<NSCopying>)key {
+    [self setItem:obj forKey:key];
+}
+
+- (void)setItem:(id)item forKey:(id<NSCopying>)key {
+    if (!key) {
+        return;
+    }
+    
+    [self setField:key byValue:item];
+}
+
+- (id)itemForKey:(id<NSCopying>)key {
+    return key ? [self fieldByName:key] : nil;
+}
+
+- (void)removeItemForKey:(id<NSCopying>)key {
+    if (!key) {
+        return;
+    }
+    
+    [self setField:key byValue:nil];
 }
 
 @end
