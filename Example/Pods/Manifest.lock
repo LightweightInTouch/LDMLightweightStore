@@ -1,0 +1,27 @@
+PODS:
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
+  - LDMLightweightStore (0.0.1):
+    - CocoaLumberjack
+    - UICKeyChainStore
+  - UICKeyChainStore (2.1.0)
+
+DEPENDENCIES:
+  - LDMLightweightStore (from `../`)
+
+EXTERNAL SOURCES:
+  LDMLightweightStore:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  LDMLightweightStore: 50929eabba80c4040e2176582f1ff3738935de28
+  UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
+
+COCOAPODS: 0.39.0
